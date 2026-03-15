@@ -55,7 +55,6 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
     option.label.toLowerCase().includes(searchTerm.toLowerCase())
   );
   const allSelected = filteredOptions.length > 0 && filteredOptions.every(option => value.includes(option.value));
-  const someSelected = filteredOptions.some(option => value.includes(option.value));
 
   // 切换选中状态
   const toggleOption = (optionValue: string) => {
@@ -102,7 +101,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
         <div className="flex flex-wrap gap-1.5 items-center pr-6">
           {/* 选中的标签 */}
           {selectedLabels.length > 0 ? (
-            selectedLabels.map((label, index) => {
+            selectedLabels.map((label) => {
               const optionValue = options.find(opt => opt.label === label)?.value || '';
               return (
                 <span

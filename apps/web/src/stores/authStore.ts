@@ -31,7 +31,7 @@ interface AuthState {
 
 const INIT_TIMEOUT_MS = 12_000;
 
-export const useAuthStore = create<AuthState>((set, get) => ({
+export const useAuthStore = create<AuthState>((set, _get) => ({
   session: null,
   user: null,
   loading: true,
