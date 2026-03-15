@@ -1,0 +1,19 @@
+{
+  "name": "my-admin-test1",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -C apps/web dev",
+    "build": "pnpm -C apps/web build",
+    "preview": "pnpm -C apps/web preview"
+  },
+  "devDependencies": {
+    "turbo": "^1.12.4"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "supabase",
+      "esbuild"
+    ]
+  }
+}
