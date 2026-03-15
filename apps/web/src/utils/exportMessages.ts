@@ -285,56 +285,6 @@ export async function exportToExcel(messages: LarkMessage[]): Promise<void> {
 }
 
 /**
- * 将文本转换为支持 PDF 显示的格式
- * 对于中文，使用 Unicode 编码确保正确显示
- */
-function encodeTextForPDF(text: string): string {
-  // jsPDF 3.x 版本对中文的支持有限
-  // 这里提供一个简化的编码方案
-  // 实际项目中，应该加载完整的中文字体文件
-  return text;
-}
-
-/**
- * 将中文文本转换为图片（临时方案，用于解决中文乱码问题）
- */
-function textToImage(text: string, fontSize: number = 12): Promise<string> {
-  return new Promise((resolve) => {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    if (!ctx) {
-      resolve('');
-      return;
-    }
-    
-    // 设置字体（使用系统支持的中文字体）
-    ctx.font = `${fontSize}px "Microsoft YaHei", "SimHei", "SimSun", "Arial Unicode MS", sans-serif`;
-    ctx.fillStyle = '#000000';
-    
-    // 测量文本宽度
-    const metrics = ctx.measureText(text);
-    const textWidth = metrics.width;
-    const textHeight = fontSize * 1.2;
-    
-    // 设置画布大小
-    canvas.width = textWidth + 4;
-    canvas.height = textHeight + 4;
-    
-    // 重新设置字体（画布大小改变后需要重新设置）
-    ctx.font = `${fontSize}px "Microsoft YaHei", "SimHei", "SimSun", "Arial Unicode MS", sans-serif`;
-    ctx.fillStyle = '#000000';
-    ctx.textBaseline = 'top';
-    
-    // 绘制文本
-    ctx.fillText(text, 2, 2);
-    
-    // 转换为 base64
-    const dataUrl = canvas.toDataURL('image/png');
-    resolve(dataUrl);
-  });
-}
-
-/**
  * 导出为 PDF 格式
  * 注意：jsPDF 默认不支持中文，这里使用 Canvas 将中文文本转换为图片的方式
  * 更好的方案：使用 jsPDF 字体转换器加载中文字体文件（如思源黑体）
